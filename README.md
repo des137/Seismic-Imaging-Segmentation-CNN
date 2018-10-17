@@ -1,2 +1,2 @@
 # SeismicSaltDetector
-Segmentation of subsurface images for the detection of salt.
+Pixel-wise dense segmentation of subsurface seismic images for the detection of salt.
