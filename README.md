@@ -9,3 +9,8 @@ Images in the first column are actual seismic images. The second and third colum
 <p align="center">
   <img src="https://github.com/des137/SeismicSaltDetector/blob/master/Seismic-Masks-CNNPrediction.png" width="350">
 </p>
+
+## Google Colab commands
+1. Clone this repository
+`git clone https://github.com/des137/SeismicSaltDetector.git`
+
