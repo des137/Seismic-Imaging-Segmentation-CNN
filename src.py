@@ -38,7 +38,7 @@ def main():
 		verbose=1)
 
 
-	model.load_weights('weights.best.hdf5')
+	model_unet.load_weights('weights.best.hdf5')
 
 	print('Predictions for validation images')
 	##### Predict validations results
