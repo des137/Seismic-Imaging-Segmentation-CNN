@@ -46,14 +46,14 @@ def main():
 	y_val_pred = model_unet.predict(x_val, verbose=1)
 
 
-	print('Predictions for validation images')
+	print('Predictions for test images')
 	##### Predict validations results
 	x_test_pred = model_unet.predict(x_test, verbose=1)
 	x_test_final = np.round(x_test_pred[:,:,:,0]+ 0.0)
 
 
 	##### Create a submission file	
-	submission_file_creator(x_test_final, test_images_path)
+	submission_file_creator(x_test_final, './test/')
 
 if __name__ == '__main__':
 	main()
