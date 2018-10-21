@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 
 import csv 
 
@@ -20,7 +21,7 @@ def format_converter(input_matrix_set):
         loc_count = []
 
         array = np.transpose(element).flatten()
-        if array[0]==1:
+        if array[0] == 1:
             locations.append(1)
             counters.append(1)
 
@@ -42,7 +43,7 @@ def format_converter(input_matrix_set):
     return final_string
 
 
-def main():
+def submission_file_creator():
   submission_string = format_converter(x_test_final)
 
   file_names = [word.split('.')[0] for word in test_im]

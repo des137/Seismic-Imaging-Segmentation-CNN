@@ -14,3 +14,5 @@ Images in the first column are actual seismic images. The second and third colum
 1. Clone this repository
 `git clone https://github.com/des137/SeismicSaltDetector.git`
 
+## References
+`https://github.com/yihui-he/u-net`

@@ -10,7 +10,7 @@ from keras.layers import *
 from keras.callbacks import ModelCheckpoint, LearningRateScheduler
 import tensorflow as tf
 
-def unet(pretrained_weights=None, input_size=(101,101,1)):
+def unet_model(pretrained_weights=None, input_size=(101,101,1)):
     
     inputs = Input(input_size)
     input_padded = ZeroPadding2D(padding=((14, 13), (14, 13)))(inputs)
@@ -45,29 +45,29 @@ def unet(pretrained_weights=None, input_size=(101,101,1)):
     conv5 = Conv2D(512, 2, activation='relu', padding='same', kernel_initializer='he_normal')(conv5)
     
     up6 = Conv2D(256, 2, activation='relu', padding='same', kernel_initializer='he_normal')(UpSampling2D(size = (2,2))(conv5))
-    merge6 = merge([conv4,up6], mode='concat', concat_axis = 3)
+    merge6 = concatenate([conv4,up6], axis = 3)
     conv6 = Conv2D(256, 3, activation='relu', padding='same', kernel_initializer='he_normal')(merge6)
     conv6 = Conv2D(256, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv6)
     
     up7 = Conv2D(128, 2, activation='relu', padding='same', kernel_initializer='he_normal')(UpSampling2D(size=(2,2))(conv6))
-    merge7 = merge([conv3,up7], mode='concat', concat_axis = 3)
+    merge7 = concatenate([conv3,up7], axis = 3)
     conv7 = Conv2D(128, 3, activation='relu', padding='same', kernel_initializer='he_normal')(merge7)
     conv7 = Conv2D(128, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv7)
     
     up8 = Conv2D(64, 2, activation='relu', padding='same', kernel_initializer='he_normal')(UpSampling2D(size = (2,2))(conv7))
-    merge8 = merge([conv2,up8], mode='concat', concat_axis=3)
+    merge8 = concatenate([conv2,up8], axis=3)
     conv8 = Conv2D(64, 3, activation='relu', padding='same', kernel_initializer='he_normal')(merge8)
     conv8 = Conv2D(64, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv8)
     
     up9 = Conv2D(32, 2, activation='relu', padding='same', kernel_initializer='he_normal')(UpSampling2D(size = (2,2))(conv8))
-    merge9 = merge([conv1,up9], mode='concat', concat_axis=3)
+    merge9 = concatenate([conv1,up9], axis=3)
     conv9 = Conv2D(32, 3, activation='relu', padding='same', kernel_initializer='he_normal')(merge9)
     conv9 = Conv2D(32, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv9)
     conv9 = Conv2D(2, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv9)
     
     conv10 = Conv2D(1, 1, activation='sigmoid')(conv9)
     crop = Cropping2D(cropping=((14, 13), (14, 13)))(conv10)
-    model = Model(inputs=inputs, output=crop)
+    model = Model(inputs=inputs, outputs=crop)
 
     if(pretrained_weights):
     	model.load_weights(pretrained_weights)
