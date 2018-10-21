@@ -12,8 +12,8 @@ Images in the first column are actual seismic images. The second and third colum
 
 ## Google Colab commands
 1. To run on Google Colab, type the following commands: 
-```python
-git clone https://github.com/des137/SeismicSaltDetector.git
+```
+!git clone https://github.com/des137/SeismicSaltDetector.git
 import os
 os.chdir('SeismicSaltDetector')
 !./run.sh
