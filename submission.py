@@ -55,5 +55,5 @@ def main():
 
   #files.download('submission.csv')   
 
-if __name__ == '__main__':
-	main()
+# if __name__ == '__main__':
+#     main()
