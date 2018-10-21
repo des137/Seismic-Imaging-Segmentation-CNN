@@ -7,7 +7,7 @@ Seismic images are obtained by sending artificial seismic waves inside the earth
 ## CNN predictions:
 Images in the first column are actual seismic images. The second and third columns show the corresponding labeled masks and the masks predicted by CNNs, respectively.
 <p align="center">
-  <img src="https://github.com/des137/SeismicSaltDetector/blob/master/Seismic-Masks-CNNPrediction.png" width="350">
+  <img src="https://github.com/des137/SeismicSaltDetector/blob/master/Real-masks-predicts.png" width="350">
 </p>
 
 ## Google Colab commands
