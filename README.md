@@ -11,11 +11,13 @@ Images in the first column are actual seismic images. The second and third colum
 </p>
 
 ## Google Colab commands
-1. Clone this repository
-`git clone https://github.com/des137/SeismicSaltDetector.git`
-`import os`
-`os.chdir('SeismicSaltDetector')`
-`!./run.sh`
+1. To run on Google Colab, type the following commands: 
+```python
+git clone https://github.com/des137/SeismicSaltDetector.git
+import os
+os.chdir('SeismicSaltDetector')
+!./run.sh
+```
 
 ## References
-`https://github.com/yihui-he/u-net`
+[https://github.com/yihui-he/u-net](https://github.com/yihui-he/u-net)
