@@ -18,6 +18,3 @@ import os
 os.chdir('SeismicSaltDetector')
 !./run.sh
 ```
-
-## References
-[https://github.com/yihui-he/u-net](https://github.com/yihui-he/u-net)
