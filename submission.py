@@ -2,6 +2,7 @@
 
 import csv 
 import os
+import numpy as np
 
 def format_converter(input_matrix_set):
     """
