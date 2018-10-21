@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import csv 
+import os
 
 def format_converter(input_matrix_set):
     """
@@ -43,16 +44,19 @@ def format_converter(input_matrix_set):
     return final_string
 
 
-def submission_file_creator():
-  submission_string = format_converter(x_test_final)
+def submission_file_creator(x_test_final, test_images_path):
+	submission_string = format_converter(x_test_final)
 
-  file_names = [word.split('.')[0] for word in test_im]
+	os.chdir(test_images_path)
+  	test_im = os.listdir('.')
+  	file_names = [word.split('.')[0] for word in test_im]
+  	os.chdir('..')
 
-  with open('submission.csv', 'w', newline ='') as csvfile:
-	  writer = csv.writer(csvfile)
-	  writer.writerow(['id', 'rle_mask'])
-	  for i in range(len(file_names)):
-		  writer.writerow([file_names[i], submission_string[i]])
+  	with open('submission.csv', 'w', newline ='') as csvfile:
+	  	writer = csv.writer(csvfile)
+	  	writer.writerow(['id', 'rle_mask'])
+	  	for i in range(len(file_names)):
+		  	writer.writerow([file_names[i], submission_string[i]])
 
   #files.download('submission.csv')   
 

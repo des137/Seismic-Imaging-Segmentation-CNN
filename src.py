@@ -14,11 +14,11 @@ def main():
 
 	x_train, y_train, x_val, y_val = prepare_training_data('./train/images/', './train/masks/')
 
-	model = unet.unet_model()
+	model_unet = unet.unet_model()
 	adam = optimizers.Adam(lr = 1e-4)   # best run 1e-4 // defaul: 1e-3
-	model.compile(loss = 'binary_crossentropy', optimizer=adam, metrics=['accuracy'])
+	model_unet.compile(loss = 'binary_crossentropy', optimizer=adam, metrics=['accuracy'])
 
-#	model_kaka.summary() # Model summary
+#	model.summary() # Model summary
 
 	x_test = prepare_test_data('./test/')
 
@@ -30,7 +30,7 @@ def main():
 		save_best_only=True, 
 		mode='max')
 	callbacks_list = [checkpoint]
-	model.fit(x_train, y_train, 
+	model_unet.fit(x_train, y_train, 
 		epochs=2, 
 		batch_size=64, 
 		validation_data=(x_val,y_val), 
@@ -40,15 +40,20 @@ def main():
 
 	model.load_weights('weights.best.hdf5')
 
+	print('Predictions for validation images')
+	##### Predict validations results
+	y_train_pred = model_unet.predict(x_train, verbose=1)
+	y_val_pred = model_unet.predict(x_val, verbose=1)
 
-	##### Predict results
-	y_train_pred = model.predict(x_train, verbose=1)
-	y_val_pred = model.predict(x_val, verbose=1)
 
-
-	x_test_pred = model.predict(x_test, verbose=1)
+	print('Predictions for validation images')
+	##### Predict validations results
+	x_test_pred = model_unet.predict(x_test, verbose=1)
 	x_test_final = np.round(x_test_pred[:,:,:,0]+ 0.0)
 
+
+	##### Create a submission file	
+	submission_file_creator(x_test_final, test_images_path)
 
 if __name__ == '__main__':
 	main()
