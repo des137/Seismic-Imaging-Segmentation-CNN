@@ -7,9 +7,6 @@ import os
 from keras import optimizers
 from keras.callbacks import ModelCheckpoint
 
-def predict(x_test, offset=0.0):
-	return x_test_final
-
 def main():
 
 	x_train, y_train, x_val, y_val = prepare_training_data('./train/images/', './train/masks/')
