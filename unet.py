@@ -12,6 +12,8 @@ import tensorflow as tf
 
 def unet_model(pretrained_weights=None, input_size=(101,101,1)):
     
+    initializer = initializers.RandomNormal(mean=0.0, stddev=0.05, seed=None)
+
     inputs = Input(input_size)
     input_padded = ZeroPadding2D(padding=((14, 13), (14, 13)))(inputs)  
     conv1 = Conv2D(32, 3, activation='relu', padding='same', kernel_initializer=initializer)(input_padded)
