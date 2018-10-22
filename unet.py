@@ -12,7 +12,7 @@ import tensorflow as tf
 
 def unet_model(pretrained_weights=None, input_size=(101,101,1)):
     
-inputs = Input(input_size)
+    inputs = Input(input_size)
     input_padded = ZeroPadding2D(padding=((14, 13), (14, 13)))(inputs)  
     conv1 = Conv2D(32, 3, activation='relu', padding='same', kernel_initializer=initializer)(input_padded)
     conv1 = Conv2D(32, 3, activation='relu', padding='same', kernel_initializer=initializer)(conv1)
