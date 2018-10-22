@@ -51,7 +51,6 @@ def main():
 	x_test_pred = model_unet.predict(x_test, verbose=1)
 	x_test_final = np.round(x_test_pred[:,:,:,0]+ 0.0)
 
-
 	##### Create a submission file	
 	submission_file_creator(x_test_final, './test/')
 
