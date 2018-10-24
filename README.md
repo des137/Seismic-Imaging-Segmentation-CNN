@@ -18,3 +18,5 @@ import os
 os.chdir('SeismicSaltDetector')
 !./run.sh
 ```
+## Presentation slides
+[https://docs.google.com/presentation/d/1aYynlKeeAV3xWG3U7jH7_zvCtj73yKif4Ek3m4lRUC4/edit](Presentation Slides)
