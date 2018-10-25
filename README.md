@@ -50,4 +50,4 @@ os.chdir('SeismicSaltDetector')
 ```
 
 ## <a name="kaka">About Me</a>
-My name is Amol Deshmukh. I am a physicist and a data scientist. For my PhD, I investigated magnetic properties of neutrons and protons (and other less-known particles called 'hyperons'). 
+My name is Amol Deshmukh. I am a physicist and a data scientist. During my PhD, I investigated magnetic properties of neutrons and protons (and other less-known particles called 'hyperons'). 
