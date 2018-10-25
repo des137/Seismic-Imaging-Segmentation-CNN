@@ -40,14 +40,13 @@ Images in the first column are actual seismic images. The second and third colum
   <img src="https://github.com/des137/SeismicSaltDetector/blob/master/real-masks-predicts.png" width="350">
 </p>
 
-## Google Colab commands
-1. To run on Google Colab, type the following commands: 
+## How to run this code on your personal computer:
+1. _SeismicSaltDetector_ can be run by simply typing the following commands in terminal: 
 ```
-!git clone https://github.com/des137/SeismicSaltDetector.git
-import os
-os.chdir('SeismicSaltDetector')
-!./run.sh
+git clone https://github.com/des137/SeismicSaltDetector.git
+cd SeismicSaltDetector
+./run.sh
 ```
 
 ## <a name="kaka">About Me</a>
-My name is Amol Deshmukh. I am a physicist and a data scientist. During my PhD, I investigated magnetic properties of neutrons and protons (and other less-known particles called 'hyperons'). 
+My name is Amol Deshmukh. I am a physicist and a data scientist. During my PhD, I investigated magnetic properties of neutrons and protons (and other less-known particles called 'hyperons'). I am extremely passionate about applying my skills that I taught myself and the techniques that I love and adore to tackle challenging business-oriented problems in data science and machine learning.
