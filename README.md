@@ -49,4 +49,4 @@ cd SeismicSaltDetector
 ```
 
 ## <a name="kaka">About Me</a>
-My name is Amol Deshmukh. I am a physicist and a data scientist. During my PhD, I investigated magnetic properties of neutrons and protons (and other less-known particles called 'hyperons'). I am extremely passionate about applying my skills that I taught myself and the techniques that I love and adore to tackle challenging business-oriented problems in data science and machine learning.
+My name is Amol Deshmukh. I am a physicist and a data scientist. During my PhD, I investigated magnetic properties of neutrons and protons (and other less-known particles called 'hyperons'). I am extremely passionate about applying my skills that physics has taught me over the years to tackle challenging business-oriented problems in data science and machine learning.
