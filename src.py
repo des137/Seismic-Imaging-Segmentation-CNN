@@ -13,13 +13,15 @@ def main():
 	model_unet = unet.unet_model()
 	adam = optimizers.Adam(lr = 1e-4)   # best run 1e-4 // defaul: 1e-3
 	model_unet.compile(loss = 'binary_crossentropy', optimizer=adam, metrics=['accuracy'])
-	model.summary()
+	model_unet.summary()
 
 	##### Run model
 	filepath = 'weights.best.hdf5'
 	checkpoint = ModelCheckpoint(filepath, monitor='val_acc', verbose=1, 
 		                     save_best_only=True, mode='max')
 	callbacks_list = [checkpoint]
+	x_train, y_train, x_val, y_val = prepare_training_data('./train/images/', './train/masks/')
+
 	model_unet.fit(x_train, y_train, epochs=2, batch_size=64, validation_data=(x_val,y_val), 
 		       callbacks=callbacks_list, verbose=1)
 	model_unet.load_weights('weights.best.hdf5')
@@ -27,7 +29,6 @@ def main():
 	
 	##### Predict validations results
 	print('Predictions for validation images')
-	x_train, y_train, x_val, y_val = prepare_training_data('./train/images/', './train/masks/')
 	y_train_pred = model_unet.predict(x_train, verbose=1)
 	y_val_pred = model_unet.predict(x_val, verbose=1)
 
