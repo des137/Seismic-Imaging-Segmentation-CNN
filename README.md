@@ -12,7 +12,7 @@
 
 [**5. Metric for Image Segmentation**](#metric)
 
-[**6. Summary**](#results)
+[**6. Results**](#results)
 
 [**7. About Me**](#me)
 
@@ -26,40 +26,57 @@ Reflection seismology is one of the most important techniques to uncover the int
 
 Since, sending mechanical instruments inside the earth is extremely costly and technologically challenging, refection seismology remains the only reliable, cost-effective, and feasible technique for such endeavors. Thus, geophysics industries rely heavily on accurate imaging and analysis of these seismic images to gain information regarding the whereabouts of hydrocarbons (trapped almost hundreds of kilometers deep inside the earth). 
 
-The raw images which are obtained by combining multiple signals require a lot of preprocessing. This is performed using estimations of sound waves inside the earth using complex geophysical models of the earth. After the preprocessing, these seismic images are in one-to-one correspondence with the true structure of the subsurface. 
+The raw images which are obtained by combining multiple signals require a lot of preprocessing. This is performed using estimations of sound waves inside the earth using complex geophysical models of the earth. After the preprocessing, these seismic images (an exmaple shown below) are in one-to-one correspondence with the true structure of the subsurface. 
 
 <p align="center">
   <img src="https://github.com/des137/SeismicSaltDetector/blob/master/seismic.png" width="450">
 </p>
 
-An extremely difficult task that follows the preprocessing step is _the interpretation of these seismic images_. Accurate interpretation of the seismic images requires years of experience in the field of geophysics. **The mistakes are costly**. Wrong interpretations can cost millions of dollars to oil and gas companies, if they dig into the earth with false predictions of hydrocarbons. Additionally, there are multiple risks involved while sending the mechanical instruments inside the earth. A very important question in this business, therefore, is whether we can leverage the power of computers to help geophysicists accurately map out the regions in the images that correspond to the presence of hydrocarbons. I take an initial step in this direction by training a neural network on seismic images with training set (of 4000 seismic images) and predicting the outcomes of the network on test set (18000 images) made available via Kaggle. The given seismic images are grayscale images, and each image corresponds to 101 by 101 (total 10201) pixels. 
+An extremely difficult task that follows the preprocessing step is _the interpretation of these seismic images_. Accurate interpretation of the seismic images requires years of experience in the field of geophysics. **The mistakes are costly**. Wrong interpretations can cost millions of dollars to oil and gas companies, if they dig into the earth with false predictions of hydrocarbons. Additionally, there are multiple risks involved while sending the mechanical instruments inside the earth. A very important question in this business, therefore, is whether we can leverage the power of computers to help geophysicists accurately map out the regions in the images that correspond to the presence of hydrocarbons. I take an initial step in this direction by training a neural network on seismic images with training set of 4000 seismic images and predicting the outcomes of the network on test set of 18000 images, made available via Kaggle. The given seismic images are grayscale images, and each image corresponds to the size of 101 by 101 (total 10201 pixels). 
 
-So in this regard, the **question** that I tackle is: given an image of size 101 by 101 with a grayscale intensity of 1 to 255, can I accurately segment the region of the images that correspond to the presence of hydrocarbons? (Note that the presence of salts inside the earth is an indicator of the presence of hydrocarbons, therefore, I will use the terms 'salts-detection' and 'hydrocarbon-detection', interchangeably). 
+So in this regard, the **question** that I tackle is: given an image of size 101 by 101 with a grayscale intensity from 1 to 255, can I accurately segment the region of the images that correspond to the presence of hydrocarbons? (Note that the presence of salts inside the earth is an indicator of the presence of hydrocarbons, therefore, I will use the terms 'salt-detection' and 'hydrocarbon-detection', interchangeably). 
 
 ## <a name="cnn">Effectiveness of Convolutional Neural Networks</a>
-The problem mentioned above, when phrased in different words is: for each of the pixels from the original image, can I classify it as containing salt or not? Such problems are termed 'dense predictions' (since the each pixel of the image needs prediction) or 'image segmentations'. As is well known, the image analysis problems are not properly suited for a regular (dense) neural network, since the input vectors grow exponentially with the size of the image. 'Convolutional neural networks' have proved immensely effective in image, speech, natural language processing tasks. These networks mimic the architecture of the visual cortex of the brain that is responsible for the image recognition. 
+The problem mentioned above, when phrased in different words is: for each of the pixels from the original image, can I classify it as containing salt or not? Such problems are termed 'image segmentations' or 'dense predictions' (since each pixel of the image needs prediction). As is well known, the image analysis problems are not properly suited for a regular (dense) neural network, since the input vector grows exponentially with the size of the image. 'Convolutional neural networks', on the other hand, have proved immensely effective in image, speech, natural language processing tasks. These networks mimic the architecture of the visual cortex of the brain that is responsible for the image recognition. 
 
 ## <a name="unet">U-Net architecture</a>
+The image below shows all the component that enter in the U-net architecture. 
+<p align="center">
+  <img src="https://github.com/des137/SeismicSaltDetector/blob/master/unet.png" width=700">
+</p>
+CNNs are mainly used for image classifications. Therefore CNN architecture, in general, involves a contracting path that captures the context of the images layer by layer. U-Net, on the other hand, adds a symmetric expanding path that helps in the localization of the original image. Since, for image segmentation problem one usually requires an output image to be of the same size as the original image, U-Net architecture is particularly well-suited for this analysis. Similar to a CNN, U-Net architecture implements few convolutional layers (with a non-linear activation function) followed by a pooling layer. A single convolutional layer consists of multiple feature maps, each generated by applying a specific filter (weights) to one of the feature maps from the previous convolutional or pooling layer.
 
 ## <a name="hyperparameters">Hyperparameter Tuning</a>
+A U-Net allows for an experimentation of a set of different hyperparmeters given below (the particular set of hyperparamters which were used in this realization of U-net and ones that produced the best meanIOU (explained below) on seismic images are also shown in the square brackets). 
+1. Number of filters/Number of feature maps [32, 64 ....1024.....32]
+2. Size of a filter/kernal size [3x3, 2x2 in the contracting path, 3x3 in the expnding path]
+3. Optimizers [Adam]
+4. Padding [Same]		
+
+Since the number of images provided was really low, image augmentation was applied to increase the size of training set. 
+Augmented images simply were the reflections of the original images along the vertical axis. Note, the reflections along the horizontal axis looses the context, since the structure of the earth is uniform along the horizontal direction, but not along the vertical direction.
 
 ## <a name="metric">Metric for Image Segmentation</a>
-
-## <a name="results">Summary and Future Directions</a>
-Images in the first column are actual seismic images. The second and third columns show the corresponding labeled masks and the masks predicted by CNNs, respectively.
+The metric that is generally used for the image segmentation problems is called 'mean intersection over union' or _meanIOU_. 
+This metric relates to the familiar classification related notions, and the ralationship is given by the ratio of true positives (TP) over the sum of true positives, false positives, and false negatives (TP+FP+FN). 
 <p align="center">
-  <img src="https://github.com/des137/SeismicSaltDetector/blob/master/real-masks-predicts.png" width="350">
+  <img src="https://github.com/des137/SeismicSaltDetector/blob/master/metric.png" width="250">
 </p>
 
-## How to run this code on your personal computer:
+## <a name="results">Results</a>
+The U-net architecture performed really well in the image segmentation task. The meanIOU obtained was 77.4%. The following images are from the validation set. Images in the first column are actual seismic images. The second and third columns show the corresponding labeled masks and the masks predicted by CNNs, respectively.
+<p align="center">
+  <img src="https://github.com/des137/SeismicSaltDetector/blob/master/real-masks-predicts.png" width="450">
+</p>
+
+### How to run this code on your personal computer:
 1. _SeismicSaltDetector_ can be run by simply typing the following commands in terminal: 
 ```
 git clone https://github.com/des137/SeismicSaltDetector.git
 cd SeismicSaltDetector
 ./run.sh
 ```
+Due to the size of the images, only about 1% of the total images are provided here. The rest of the images can be downloaded from [Kaggle](https://www.kaggle.com/c/tgs-salt-identification-challenge/). 
 
 ## <a name="me">About Me</a>
-My name is Amol Deshmukh. I am a physicist and a data scientist. During my PhD, I investigated magnetic properties of neutrons and protons (and other less-known particles called 'hyperons'). I am extremely passionate about applying my skills that physics has taught me over the years to tackle challenging business-oriented problems in data science and machine learning.
-
-## 
+My name is Amol Deshmukh. I am a physicist and a data scientist. During my PhD, I investigated magnetic properties of neutrons and protons (and other less-known particles called 'hyperons'). I am extremely passionate about applying my skills that physics has taught me over the years to tackle challenging business-oriented problems in data science and machine learning. 
