@@ -73,7 +73,7 @@ The U-net architecture performed really well in the image segmentation task. The
 1. _SeismicSaltDetector_ can be run by simply typing the following commands in terminal: 
 ```
 git clone https://github.com/des137/SeismicSaltDetector.git
-cd SeismicSaltDetector
+cd SeismicSaltDetector/src
 ./run.sh
 ```
 Due to the size of the images, only about 1% of the total images are provided here. The rest of the images can be downloaded from [Kaggle](https://www.kaggle.com/c/tgs-salt-identification-challenge/). 
